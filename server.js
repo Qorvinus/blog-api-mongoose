@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require("express");
+const morgan = require("morgan");
 const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
@@ -9,7 +10,10 @@ const { PORT, DATABASE_URL } = require("./config");
 const { Blogposts } = require("./models");
 
 const app = express();
+
 app.use(express.json());
+
+app.use(morgan('common'));
 
 app.get("/posts", (req, res) => {
   Blogposts.find()
